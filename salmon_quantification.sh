@@ -2,7 +2,7 @@
 
 #variables to define
 #declare -x salmonIndex=					#salmon index output directory
-declare -x inFasta=$finalOut/LncRNA_finalSeq_final.fa	#input file with transcript fasta files
+declare -x inFasta= $1 #$finalOut/LncRNA_finalSeq_final.fa	#input file with transcript fasta files
 #declare -x readsDir=					#path to the clean reads directory
 ##declare -x read1_suffix="_read1_val_1.fq.gz"		#read1 suffix after preferred sample name/ID
 #declare -x read2_suffix="_read2_val_2.fq.gz"		#read2 suffix
@@ -23,8 +23,8 @@ for i in $(find $readsDir/ -name "*$read1_suffix")
                 salmon quant -i $salmonIndex \
                         -l ISR \
                         -g $gtf \
-                        -1 <(gunzip -c $fq_dir/${name2}${read1_suffix}) -2 <(gunzip -c $fq_dir/${name2}${read2_suffix}) \
-                        --gcBias
+                        -1 <(gunzip -c $fq_dir/${name2}${read1_suffix}) -2 <(gunzip -c $fq_dir/${name2}${read1_suffix}) \
+                        --gcBias \
                         -p 10 \
                         -o $salmonOut/$name
 
@@ -32,8 +32,8 @@ for i in $(find $readsDir/ -name "*$read1_suffix")
                 salmon quant -i $salmonIndex \
                         -l A \
                         -g $gtf \
-                        -1 <(gunzip -c $fq_dir/${name2}${read1_suffix}) -2 <(gunzip -c $fq_dir/${name2}${read2_suffix}) \
-                        --gcBias
+                        -1 <(gunzip -c $fq_dir/${name2}${read1_suffix}) -2 <(gunzip -c $fq_dir/${name2}${read1_suffix}) \
+                        --gcBias \
                         -p 10 \
                         -o $salmonOut/$name
         fi
